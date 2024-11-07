@@ -1,63 +1,37 @@
-class MenuItem:
-    def __init__(self, name, price):
-        self.name = name
-        self.price = price
+menu = {
+    "Pizza":70,
+    "Pasta":50,
+    "Burger":30,
+    "Salad":30,
+    "Coffee":60
+}
 
-class CafeManagementSystem:
-    def __init__(self):
-        self.menu = []
-        self.orders = []
-    
-    def add_menu_item(self, name, price):
-        item = MenuItem(name, price)
-        self.menu.append(item)
-        print(f"{name} added to the menu.")
-    
-    def display_menu(self):
-        print("\nMenu:")
-        for i, item in enumerate(self.menu, 1):
-            print(f"{i}. {item.name} - ${item.price:.2f}")
-    
-    def take_order(self):
-        self.display_menu()
-        order = []
-        while True:
-            try:
-                choice = int(input("\nEnter the menu item number to add to the order (0 to finish): "))
-                if choice == 0:
-                    break
-                elif 1 <= choice <= len(self.menu):
-                    item = self.menu[choice - 1]
-                    order.append(item)
-                    print(f"{item.name} added to the order.")
-                else:
-                    print("Invalid choice, please select a valid menu item.")
-            except ValueError:
-                print("Please enter a valid number.")
-        
-        self.orders.append(order)
-    
-    def generate_bill(self):
-        total = 0
-        print("\nBill:")
-        for order in self.orders:
-            for item in order:
-                print(f"{item.name} - ${item.price:.2f}")
-                total += item.price
-        print(f"\nTotal amount: ${total:.2f}")
+print("Hello Sir")
+print("Welcome to our restaurant")
+print("This is our MENU")
+print("Pizza: 70/-\nPasta: 50/-\nBurger: 30/-\nSalad: 30/-\nCoffee: 60/-")
+order_total = 0
 
-# Sample usage
-if __name__ == "__main__":
-    system = CafeManagementSystem()
-    
-    # Add items to the menu
-    system.add_menu_item("Coffee", 3.00)
-    system.add_menu_item("Tea", 2.50)
-    system.add_menu_item("Sandwich", 5.50)
-    system.add_menu_item("Cake", 4.00)
-    
-    # Take orders
-    system.take_order()
-    
-    # Generate bill
-    system.generate_bill()
+item_1 = input("Enter an item to order: ").capitalize()
+if item_1 in menu:
+    order_total += menu[item_1]
+    print(f"{item_1} has been added")
+else:
+    print("Sorry! That's not availale")
+
+another_item = input("Do you want Anything Else? (Yes/No):").lower()
+if another_item in "yes" or "no":
+    if another_item == 'yes':
+        item_2 = input("What would you like to order next?: ").capitalize()
+        if item_2 in menu:
+            order_total += menu[item_2]
+            print(f"{item_2} has been added")
+            print(f"Your total bill is Rs {order_total}")
+        else:
+            print("Sorry! that item is not unavailable")
+    elif another_item == 'no':
+        print(f"Great! You ordered a {item_1}")
+        print(f"Your total bill is Rs {order_total}")
+
+else:
+    print("Sorry! That's not a valid response")
